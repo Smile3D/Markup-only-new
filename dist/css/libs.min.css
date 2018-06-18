@@ -1,0 +1,53 @@
+.accordion {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  list-style: none;
+}
+
+.accordion>* {
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion .accordion,
+.accordion.edge-visible,
+.accordion>* {
+  transition: all .3s ease;
+}
+
+.accordion,
+.accordion>* {
+  will-change: height,transform;
+  perspective: 90em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.snap.accordion .accordion,
+.snap.accordion>* {
+  transition: none!important;
+}
+
+.accordion>*>:first-child {
+  cursor: pointer;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.accordion>*>:last-child {
+  overflow: hidden;
+  transition: height .3s ease,visibility .3s step-start;
+}
+
+.accordion>.closed .accordion>.open>:last-child,
+.accordion>.closed>:last-child {
+  transition-timing-function: ease,step-end;
+  visibility: hidden;
+}
