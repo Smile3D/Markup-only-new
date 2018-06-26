@@ -361,14 +361,6 @@ th {
   display: block;
   clear: both; }
 
-.ellipsis {
-  white-space: nowrap;
-  /* 1 */
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
-  /* 2 */
-  overflow: hidden; }
-
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
