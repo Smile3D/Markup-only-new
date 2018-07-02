@@ -36,7 +36,8 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function(){
 	return gulp.src([
-		
+		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
+		'node_modules/slick-carousel/slick/slick.min.js'
 	])
 	.pipe(concat('libs.min.js'))
 	.pipe(uglify())
@@ -45,7 +46,9 @@ gulp.task('scripts', function(){
 
 gulp.task('css-libs', function() {
 	return gulp.src([
-		
+		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
+		'node_modules/slick-carousel/slick/slick.css',
+		'node_modules/slick-carousel/slick/slick-theme.css'
 	])
 	.pipe(concat('libs.min.css'))
 	.pipe(cssnano())
