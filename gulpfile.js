@@ -27,7 +27,7 @@ gulp.task('styles', function() {
 	 }))
 	.pipe(sourcemaps.init())
 	.pipe(sass().on('error', sass.logError))
-	.pipe(autoprefixer(['last 15 version', '>1%', 'ie 8', 'ie 7'], {cascade: true}))
+	.pipe(autoprefixer(['last 2 versions'], {cascade: true}))
 	.pipe(sourcemaps.write('./'))
 	.pipe(plumber.stop())
 	.pipe(gulp.dest('css'))
@@ -36,19 +36,21 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function(){
 	return gulp.src([
-		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
-		'node_modules/slick-carousel/slick/slick.min.js'
+		'node_modules/jquery/dist/jquery.min.js',
+		'js/scripts.js'
 	])
-	.pipe(concat('libs.min.js'))
+	.pipe(sourcemaps.init())
+	.pipe(plumber())
+	.pipe(concat('common.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('js'))
+	.pipe(sourcemaps.write('source-maps'))
+	.pipe(browserSync.reload({stream: true}))
 });
 
 gulp.task('css-libs', function() {
 	return gulp.src([
-		'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
-		'node_modules/slick-carousel/slick/slick.css',
-		'node_modules/slick-carousel/slick/slick-theme.css'
+		
 	])
 	.pipe(concat('libs.min.css'))
 	.pipe(cssnano())
@@ -79,7 +81,7 @@ gulp.task('build', ['clean','img', 'styles'], function() {
 	var buildFonts = gulp.src('fonts/**/*')
 		.pipe(gulp.dest('dist/fonts'));
 
-	var buildJS = gulp.src('js/**/*')
+	var buildJS = gulp.src('js/common.js')
 		.pipe(gulp.dest('dist/js'));
 
 	var buildHTML = gulp.src('*.html')
@@ -115,5 +117,5 @@ gulp.task('watch', ['browser-sync', 'styles', 'css-libs', 'scripts'] , function(
 	gulp.watch(''+syntax+'/**/*.'+syntax+'', ['styles']);
 	gulp.watch('*.html', browserSync.reload);
 	gulp.watch('**/*.css', browserSync.reload);
-	gulp.watch('js/**/*.js', browserSync.reload);
+	gulp.watch(['js/*.js', '!js/common.js'], ['scripts']);
 });
