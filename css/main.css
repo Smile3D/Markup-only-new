@@ -369,9 +369,6 @@ html {
   -webkit-box-sizing: inherit;
           box-sizing: inherit; }
 
-* {
-  max-height: 1000000px; }
-
 body {
   color: #333;
   background: #fff;
